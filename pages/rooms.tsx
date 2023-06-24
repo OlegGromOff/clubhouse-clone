@@ -2,7 +2,7 @@ import { Button } from '../components/Button';
 import { Header } from '../components/Header';
 import { ConversationCard } from '../components/ConversationCard';
 import { StartRoomModal } from '../components/StartRoomModal';
-import Link from 'next/link';
+import Link from 'next/link'; // Позволяет создавать ссылки в next.js
 import React from 'react';
 import Head from 'next/head';
 import { checkAuth } from '../utils/checkAuth';

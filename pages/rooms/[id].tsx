@@ -6,7 +6,7 @@ import { Room } from '../../components/Room';
 import { wrapper } from '../../redux/store';
 import { checkAuth } from '../../utils/checkAuth';
 
-export default function RoomPage({ room }) {
+export default function RoomPage({ room }) { // room - data of room that we get from server side  
   return (
     <>
       <Header />
@@ -19,6 +19,7 @@ export default function RoomPage({ room }) {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
+  // ctx - context of request
   try {
     const user = await checkAuth(ctx);
 
@@ -32,8 +33,8 @@ export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
       };
     }
 
-    const roomId = ctx.query.id;
-    const room = await Api(ctx).getRoom(roomId as string);
+    const roomId = ctx.query.id; // get id from url
+    const room = await Api(ctx).getRoom(roomId as string); // get room data by id from url  
 
     return {
       props: {

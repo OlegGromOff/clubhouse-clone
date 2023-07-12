@@ -15,15 +15,15 @@ export const EnterCodeStep = () => {
   const [codes, setCodes] = React.useState(['', '', '', '']);
 
   const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const index = Number(event.target.getAttribute('id'));
+    const index = Number(event.target.getAttribute('id')); // тут мы получаем индекс инпута по его id (0, 1, 2, 3) и приводим его к числу (Number) т.к. по умолчанию это строка (String)  
     const value = event.target.value;
     setCodes((prev) => {
-      const newArr = [...prev];
+      const newArr = [...prev]; // создаем копию массива codes (prev) и записываем ее в newArr 
       newArr[index] = value;
       return newArr;
     });
     if (event.target.nextSibling) {
-      (event.target.nextSibling as HTMLInputElement).focus();
+      (event.target.nextSibling as HTMLInputElement).focus(); // переводим фокус на следующий инпут (если он есть) 
     } else {
       onSubmit([...codes, value].join(''));
     }
@@ -36,9 +36,9 @@ export const EnterCodeStep = () => {
         code,
         user: userData,
       });
-      router.push('/rooms');
+      router.push('/rooms'); // переходим на страницу rooms 
     } catch (error) {
-      alert('Ошибка при активации!');
+      alert('Activation error!');
       setCodes(['', '', '', '']);
     }
 

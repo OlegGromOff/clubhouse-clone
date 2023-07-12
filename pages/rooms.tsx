@@ -2,9 +2,9 @@ import { Button } from '../components/Button';
 import { Header } from '../components/Header';
 import { ConversationCard } from '../components/ConversationCard';
 import { StartRoomModal } from '../components/StartRoomModal';
-import Link from 'next/link'; // Позволяет создавать ссылки в next.js
+import Link from 'next/link'; // allow to use <a> tag with <Link> tag 
 import React from 'react';
-import Head from 'next/head';
+import Head from 'next/head'; // allow to change head of page (title, meta tags, etc.) 
 import { checkAuth } from '../utils/checkAuth';
 import { Api } from '../api';
 import { GetServerSideProps, NextPage } from 'next';
@@ -44,7 +44,7 @@ const RoomsPage: NextPage = () => {
         <div className="grid mt-30">
           {rooms.map((obj) => (
             <Link key={obj.id} href={`/rooms/${obj.id}`}>
-              <a className="d-flex">
+              <a className="d-flex"> 
                 <ConversationCard
                   title={obj.title}
                   speakers={obj.speakers}
@@ -59,13 +59,16 @@ const RoomsPage: NextPage = () => {
   );
 };
 
+// get data from server side and pass it to component as props 
+// getServerSideProps - function that will be executed on server side before component will be rendered on client side 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(async (ctx) => {
+  // all code here will be executed on server
   try {
-    const user = await checkAuth(ctx);
+    const user = await checkAuth(ctx); // check if user is authorized (if he has token) and return user data if he is authorized  
 
-    if (!user) {
+    if (!user) { // if user is not authorized
       return {
-        props: {},
+        props: {}, // next.js needs to return props
         redirect: {
           permanent: false,
           destination: '/',

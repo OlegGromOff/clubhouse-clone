@@ -32,11 +32,12 @@ const ProfilePage: NextPage<ProfilePageProps> = ({ profileData }) => {
 
 export default ProfilePage;
 
-export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
+// getServerSideProps - function that will be called on server side   before component will be rendered on client side 
+export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => { // ctx - context of request 
   try {
-    const user = await checkAuth(ctx);
+    const user = await checkAuth(ctx); // check if user is authorized (if he has token) and return user data if he is authorized
 
-    const userId = ctx.query.id;
+    const userId = ctx.query.id; // get id from url 
     const profileData = await Api(ctx).getUserInfo(Number(userId));
 
     if (!user || !profileData) {

@@ -9,16 +9,16 @@ import { MainContext } from '../../../pages';
 import { Avatar } from '../../Avatar';
 
 export const EnterNameStep = () => {
-  const { onNextStep, userData, setFieldValue } = React.useContext(MainContext);
+  const { onNextStep, userData, setFieldValue } = React.useContext(MainContext); // получаем функцию onNextStep из MainContext
   const [inputValue, setInputValue] = React.useState<string>(userData.fullname);
-  const nextDisabled = !inputValue;
+  const nextDisabled = !inputValue; //
 
   const handleChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
   };
 
   const onClickNextStep = () => {
-    setFieldValue('fullname', inputValue);
+    setFieldValue('fullname', inputValue); // записываем в поле fullname значение inputValue и передаем его в MainContext 
     onNextStep();
   };
 

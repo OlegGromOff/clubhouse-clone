@@ -17,3 +17,16 @@ npx create-next-app@latest clubhouse-clone
 Есть static generation и server side red рендеринг в next.js
 Server side rendering используем когда надо динамически отображать данные с сервера(если что то меняется на сервере, то это сразу отображается на клиенте)
 Если надо отображать статические данные, то используем static generation
+
+npm i node-sass - устанавливаем sass
+npm i clsx - устанавливаем clsx, он нужен для того что бы добавлять несколько классов к одному элементу, например: className={clsx(styles.button, styles.primary)} - аналог classnames в реакте
+
+Установим 
+npm i typescript @types/node @types/react -D
+
+npm i axios - устанавливаем axios
+
+Чтобы в next.js обратиться к странице /profile/123 надо создать папку profile и в ней создать файл [id].tsx (в квадратных скобках можно указать что угодно), в нем мы можем получить id так: const { query } = useRouter() и дальше обращаемся к id так: query.id
+
+В next.js можно создавать свой бекенд на основе api, для этого создаем папку pages/api и в ней создаем файлы, например: pages/api/rooms.tsx, pages/api/user.tsx, pages/api/rooms/[id].tsx, pages/api/rooms/[id]/users.tsx  
+

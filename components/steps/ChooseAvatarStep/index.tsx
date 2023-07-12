@@ -33,14 +33,14 @@ export const ChooseAvatarStep: React.FC = () => {
   const inputFileRef = React.useRef<HTMLInputElement>(null);
 
   const handleChangeImage = async (event: Event) => {
-    const target = event.target as HTMLInputElement;
-    const file = target.files[0];
+    const target = event.target as HTMLInputElement; // тут мы получаем доступ к инпуту с картинкой (который скрытый) и можем получить файл который мы выбрали на компе. as HTMLInputElement - это приведение типов к HTMLInputElement (т.к. target по умолчанию имеет тип Event)  
+    const file = target.files[0]; // файл который мы выбрали на компе
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setAvatarUrl(imageUrl);
+      const imageUrl = URL.createObjectURL(file); // тут мы получаем ссылку на файл в браузере (в памяти) и можем ее использовать для отображения картинки в браузере (в img) без загрузки на сервер (пока) Чтобы выбрать картинку с компа и отобразить ее в браузере
+      setAvatarUrl(imageUrl); // тут мы устанавливаем ссылку на картинку загруженную с компа в браузере
       const data = await uploadFile(file);
       target.value = '';
-      setAvatarUrl(data.url);
+      setAvatarUrl(data.url); // тут мы устанавливаем ссылку на картинку загруженную с компа 
       setFieldValue('avatarUrl', data.url);
     }
   };

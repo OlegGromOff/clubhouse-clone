@@ -7,7 +7,7 @@ interface AvatarProps {
   src: string;
   width: string;
   height: string;
-  className?: string;
+  className?: string; // ? - необязательный параметр
   isVoice?: boolean;
   letters?: string;
 }

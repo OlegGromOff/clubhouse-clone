@@ -37,7 +37,7 @@ type MainContextProps = {
   userData?: UserData;
 };
 
-export const MainContext = React.createContext<MainContextProps>({} as MainContextProps);
+export const MainContext = React.createContext<MainContextProps>({} as MainContextProps); // создаем контекст 
 
 const getUserData = (): UserData | null => {
   try {
@@ -68,10 +68,10 @@ export default function Home() {
     setStep((prev) => prev + 1);
   };
 
-  const setFieldValue = (field: string, value: string) => {
+  const setFieldValue = (field: string, value: string) => { // функция для изменения данных в контексте 
     setUserData((prev) => ({
-      ...prev,
-      [field]: value,
+      ...prev, // берем все предыдущие данные
+      [field]: value, // меняем только одно поле
     }));
   };
 
@@ -93,7 +93,8 @@ export default function Home() {
   }, [userData]);
 
   return (
-    <MainContext.Provider value={{ step, onNextStep, userData, setUserData, setFieldValue }}>
+    // передаем в контекст данные
+    <MainContext.Provider value={{ step, onNextStep, userData, setUserData, setFieldValue }}> 
       <Step />
     </MainContext.Provider>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import NumberFormat from 'react-number-format';
+import NumberFormat from 'react-number-format'; // библиотека для форматирования номера телефона в формате +8 (999) 333-22-11 (пример) 
 import { WhiteBlock } from '../../WhiteBlock';
 import { Button } from '../../Button';
 import { StepInfo } from '../../StepInfo';
@@ -19,7 +19,7 @@ export const EnterPhoneStep = () => {
   const [isLoading, setIsLoading] = React.useState(false);
   const [values, setValues] = React.useState<InputValueState>({} as InputValueState);
 
-  const nextDisabled = !values.formattedValue || values.formattedValue.includes('_');
+  const nextDisabled = !values.formattedValue || values.formattedValue.includes('_'); // если форматированное значение пустое или в нем есть символ _ (который мы задали в маске) то кнопка Next не активна
 
   const onSubmit = async () => {
     try {
@@ -43,14 +43,14 @@ export const EnterPhoneStep = () => {
       />
       <WhiteBlock className={clsx('m-auto mt-30', styles.whiteBlock)}>
         <div className={clsx('mb-30', styles.input)}>
-          <img src="/static/russian-flag.png" alt="flag" width={24} />
+          <img src="/static/ukraine.png" alt="flag" width={24} />
           <NumberFormat
             className="field"
-            format="+# (###) ###-##-##"
-            mask="_"
-            placeholder="+7 (999) 333-22-11"
+            format="+# (###) ###-##-##" // формат номера телефона +8 (999) 333-22-11 (пример) Тут могу задать любой формат
+            mask="_" // маска для ввода номера телефона
+            placeholder="+8 (999) 333-22-11"
             value={values.value}
-            onValueChange={({ formattedValue, value }) => setValues({ formattedValue, value })}
+            onValueChange={({ formattedValue, value }) => setValues({ formattedValue, value })} // обработчик изменения значения в поле ввода номера телефона 
           />
         </div>
         <Button disabled={isLoading || nextDisabled} onClick={onSubmit}>

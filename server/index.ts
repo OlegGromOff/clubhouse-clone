@@ -5,7 +5,7 @@ import fs from 'fs';
 import socket from 'socket.io';
 import { createServer } from 'http';
 import cors from 'cors';
-import { passport } from './core/passport';
+import { passport } from './core/passport'; // for auth with jwt and github strategy 
 import { uploader } from './core/uploader';
 
 import AuthController from './controllers/AuthController';
@@ -15,7 +15,7 @@ import { UserData } from '../pages';
 import { getUsersFromRoom, SocketRoom } from '../utils/getUsersFromRoom';
 
 dotenv.config({
-  path: 'server/.env',
+  path: 'server/.env', // this is path to .env file
 });
 
 const app = express();
@@ -30,21 +30,23 @@ app.use(cors());
 app.use(express.json());
 app.use(passport.initialize());
 
+// authenticate this is method from passport library
 app.get('/rooms', passport.authenticate('jwt', { session: false }), RoomController.index);
-app.post('/rooms', passport.authenticate('jwt', { session: false }), RoomController.create);
+app.post('/rooms', passport.authenticate('jwt', { session: false }), RoomController.create); //  - создание комнаты - проверка на авторизацию
 app.get('/rooms/:id', passport.authenticate('jwt', { session: false }), RoomController.show);
 app.delete('/rooms/:id', passport.authenticate('jwt', { session: false }), RoomController.delete);
 
+// /auth/login - POST - авторизация пользователя по логину и паролю (в ответе выдать JWT токен) - готово 
 app.get('/user/:id', passport.authenticate('jwt', { session: false }), AuthController.getUserInfo);
 app.get('/auth/me', passport.authenticate('jwt', { session: false }), AuthController.getMe);
 app.get('/auth/sms', passport.authenticate('jwt', { session: false }), AuthController.sendSMS);
-app.get('/auth/github', passport.authenticate('github'));
+app.get('/auth/github', passport.authenticate('github')); // in this place we will redirect to github auth page
 app.post(
   '/auth/sms/activate',
   passport.authenticate('jwt', { session: false }),
   AuthController.activate,
 );
-app.get(
+app.get( // this is callback from github auth page. In this place we will get user data from github  and check it in our database  
   '/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/login' }),
   AuthController.authCallback,

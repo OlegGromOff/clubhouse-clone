@@ -8,6 +8,7 @@ https://nextjs.org/docs/getting-started/installation
 npx create-next-app@latest clubhouse-clone
 
 Запустить next.js проект: npm run dev (не npm run start, npm run start используй в продакшн а не в режиме разработки)
+Запустить сервер: npm run server 
 
 В next.js создаем страницы в папке pages, их можно создавать как в реакте, но важно что бы название файла было с маленькой буквы и в названии файла не было пробелов, например: index.tsx, about.tsx, contacts.tsx
 Мы не используем роуты, next.js сам создает роуты на основе названия файла в папке pages, например если у нас есть файл index.tsx, то по умолчанию он будет открываться по адресу localhost:3000, если у нас есть файл about.tsx, то он будет открываться по адресу localhost:3000/about
@@ -28,5 +29,24 @@ npm i axios - устанавливаем axios
 
 Чтобы в next.js обратиться к странице /profile/123 надо создать папку profile и в ней создать файл [id].tsx (в квадратных скобках можно указать что угодно), в нем мы можем получить id так: const { query } = useRouter() и дальше обращаемся к id так: query.id
 
-В next.js можно создавать свой бекенд на основе api, для этого создаем папку pages/api и в ней создаем файлы, например: pages/api/rooms.tsx, pages/api/user.tsx, pages/api/rooms/[id].tsx, pages/api/rooms/[id]/users.tsx  
+В next.js можно создавать свой бекенд(кастомный сервер) на основе api, для этого создаем папку pages/api и в ней создаем файлы, например: pages/api/rooms.tsx, pages/api/user.tsx, pages/api/rooms/[id].tsx, pages/api/rooms/[id]/users.tsx  
+Next.js и сервер (апи) лучше делать на разных портах
 
+Установим express.js: npm i express // это нужно для того что бы создать сервер на node.js 
+Установим cors: npm i cors // это нужно для того что бы разрешить кросс доменные запросы (когда фронт на одном порте, а бек на другом) 
+Установим ts-node-dev: npm i ts-node-dev -D // это нужно для того что бы запускать сервер на node.js с помощью ts, а не js  
+Можно это все установить одной строкой так: npm i express cors ts-node-dev -D
+
+Для работы сервера нам нужен файл tsconfig.server.json
+
+Установи типы для express.js: npm i @types/express 
+Установи passport.js: npm i passport passport // это нужно для авторизации 
+Установи типы для passport.js: npm i @types/passport 
+Установи jwt (jsonwebtoken) для авторизации: npm i jsonwebtoken 
+
+Для логина через github нам нужен модуль passport-github, установи его: npm i passport-github
+
+Установи npm i dotenv // это нужно для того что бы скрыть секретные данные, например токены, ключи и т.д.
+
+Базы данных: используй sequelize.js : npm i sequelize // это нужно для того что бы работать с базами данных 
+Так же установим: npm i pg pg-hstore // это driver of sequelize нужно для того что бы работать с базами данных postgresql

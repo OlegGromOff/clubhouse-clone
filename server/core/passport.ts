@@ -30,7 +30,7 @@ passport.use(
         let userData: UserData;
 
         const obj: Omit<UserData, 'id'> = {
-          fullname: profile.displayName,
+          fullname: profile.displayName, // User name
           avatarUrl: profile.photos?.[0].value,
           isActive: 0,
           username: profile.username,
